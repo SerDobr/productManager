@@ -10,7 +10,7 @@ public class ManagerRepositoryTest {
     Product name3 = new Smartphone(3, "Smartphone 3", 300, "manufacturer3");
     Product name4 = new Book(4, "Book2", 400, "author4");
 
-    //    Product name5 = new Smartphone(5, "Smartphone 1", 500, "manufacturer5");
+        Product name5 = new Smartphone(5, "Smartphone 1", 500, "manufacturer5");
 //    Product name6 = new Book(6, "Book 6", 600, "author6");
 //    Product name7 = new Smartphone(7, "Smartphone 7", 700, "manufacturer7");
 //    Product name8 = new Book(8, "Book 8", 800, "author8");
@@ -38,7 +38,7 @@ public class ManagerRepositoryTest {
     }
 
     @Test
-    public void shouldSearchBy() {
+    public void shouldSearchBySmartphone() {
         Product[] expected = {name1, name3};
         Product[] actual = manager.searchBy("Smartphone");
         Assertions.assertArrayEquals(expected, actual);
@@ -49,6 +49,30 @@ public class ManagerRepositoryTest {
         repo.removeById(2);
         Product[] expected = {name1, name3, name4};
         Product[] actual = manager.findAllProduct();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void shouldRemoveNotId() {
+        Assertions.assertThrows(NotFoundException.class,()->{
+            repo.removeById(20);
+        });
+    }
+    @Test
+    public void shouldAddProductExistingId() {
+        Assertions.assertThrows(AlreadyExistsException.class,()->{
+            repo.addProduct(name4);
+        });
+    }
+    @Test
+    public void shouldSearchByBook() {
+        Product[] expected = {name2, name4};
+        Product[] actual = manager.searchBy("Book");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void shouldSearchByID() {
+        Product[] expected = {name4};
+        Product[] actual = new Product[]{repo.findById(4)};
         Assertions.assertArrayEquals(expected, actual);
     }
 }
