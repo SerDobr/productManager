@@ -4,7 +4,6 @@ public class Product {
     protected int cost;
 
 
-
     public Product(int id, String name, int cost) {
         this.id = id;
         this.name = name;

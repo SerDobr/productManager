@@ -36,8 +36,9 @@ public class ManagerRepository {
         if (product.getName().contains(search)) {
             return true;
 
-        } else
+        } else {
             return false;
+        }
     }
 }
 
